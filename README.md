@@ -1,71 +1,26 @@
-# font-randomizer README
+# Font Randomizer
 
-This is the README for your extension "font-randomizer". After writing up a brief description, we recommend including the following sections.
+Do you like more than one font? Well, now you don't have to choose just one! With font randomizer, you can have Visusal Studio Code select one of your favorite fonts for you.
+
+Getting tired of the current font? With one command, you can change it to another one of your favorites!
+
+![Font randomization command](assets/font_randomizer_demo.gif)
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+This extension randomly selects a font from a list defined in its settings. You can freely add, edit, and delete fonts from this list by going into settings (Mac: command + , Windows: ctrl + ,) and searching for "random font list."
 
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
-
-## Requirements
-
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+If there are no valid fonts in the list, it will select the default monospace font.
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
 This extension contributes the following settings:
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+- `fontRandomizer.fontList`: The array of fonts that the extension selects from.
+- `fontRandomizer.activateOnStartup`: This determines if the extension changes the font every time you start up vs code or not (default: true)
 
-## Known Issues
+## Support the dev
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+Like this extension? Consider leaving a review (it's free) or, if you _really_ like it, tip me a few bucks on ko-fi.
 
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+<a href='https://ko-fi.com/supportkofi' target='_blank'><img height='35' style='border:0px;height:46px;' src='https://az743702.vo.msecnd.net/cdn/kofi3.png?v=0' border='0' alt='Buy Me a Coffee at ko-fi.com' />

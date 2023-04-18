@@ -1,9 +1,7 @@
-# Change Log
+# Changelog
 
-All notable changes to the "font-randomizer" extension will be documented in this file.
+All notable changes to this project will be documented in this file.
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+## [v1.0.0] - 2023-04-17
 
-## [Unreleased]
-
-- Initial release
+Released!!!

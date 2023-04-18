@@ -1,15 +1,28 @@
 {
   "name": "font-randomizer",
   "displayName": "Font Randomizer",
-  "description": "",
-  "version": "0.0.1",
+  "description": "Why limit yourself to just one font?",
+  "version": "1.0.0",
+  "icon": "assets/icon.png",
+  "repository": {
+    "url": "https://github.com/Zev18/font-randomizer"
+  },
   "engines": {
     "vscode": "^1.77.0"
   },
   "categories": [
+    "Extension Packs",
+    "Themes",
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "keywords": [
+    "font",
+    "randomizer",
+    "theme"
+  ],
   "main": "./out/extension.js",
   "contributes": {
     "configuration": [
@@ -17,7 +30,12 @@
         "type": "object",
         "title": "Font Randomizer",
         "properties": {
-          "randomFontList.fonts": {
+          "fontRandomizer.activateOnStartup": {
+            "type": "boolean",
+            "default": "true",
+            "description": "Whether to randomly change the font on startup or not"
+          },
+          "fontRandomizer.fontList": {
             "type": "array",
             "items": {
               "type": "string"
@@ -25,7 +43,7 @@
             "default": [
               "Cascadia Code"
             ],
-            "description": "List of fonts to randomly select from."
+            "description": "List of fonts for the extension to randomly select from"
           }
         }
       }

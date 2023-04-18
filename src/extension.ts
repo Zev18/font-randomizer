@@ -3,10 +3,21 @@
 import * as vscode from "vscode";
 
 function randomize() {
+  let currentFont = vscode.workspace
+    .getConfiguration()
+    .get("editor.fontFamily")
+    .split(", ")[0];
   const fonts = vscode.workspace
-    .getConfiguration("randomFontList")
-    .get<string[]>("fonts") || ["monospace"];
-  const randomFont = fonts[Math.floor(Math.random() * fonts.length)];
+    .getConfiguration("fontRandomizer")
+    .get<string[]>("fontList") || ["monospace"];
+  let randomFont = fonts[Math.floor(Math.random() * fonts.length)];
+
+  if (fonts.length > 1) {
+    while (randomFont === currentFont) {
+      randomFont = fonts[Math.floor(Math.random() * fonts.length)];
+    }
+  }
+
   vscode.workspace
     .getConfiguration()
     .update("editor.fontFamily", randomFont + ", monospace", true);
@@ -16,7 +27,13 @@ function randomize() {
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-  randomize();
+  const activateOnStartup = vscode.workspace
+    .getConfiguration("fontRandomizer")
+    .get<boolean>("activateOnStartup");
+
+  if (activateOnStartup) {
+    randomize();
+  }
 
   let disposable = vscode.commands.registerCommand(
     "font-randomizer.randomize",
