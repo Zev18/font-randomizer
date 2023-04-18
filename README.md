@@ -1,6 +1,6 @@
 # Font Randomizer
 
-Do you like more than one font? Well, now you don't have to choose just one! With font randomizer, you can have Visusal Studio Code select one of your favorite fonts for you.
+Do you like more than one font? Well, now you don't have to choose just one! With font randomizer, you can have Visual Studio Code select one of your favorite fonts for you.
 
 Getting tired of the current font? With one command, you can change it to another one of your favorites!
 

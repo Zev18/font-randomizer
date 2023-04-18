@@ -5,8 +5,9 @@ import * as vscode from "vscode";
 function randomize() {
   let currentFont = vscode.workspace
     .getConfiguration()
-    .get("editor.fontFamily")
-    .split(", ")[0];
+    .get("editor.fontFamily") as string;
+  currentFont = currentFont.split(", ")[0];
+
   const fonts = vscode.workspace
     .getConfiguration("fontRandomizer")
     .get<string[]>("fontList") || ["monospace"];
