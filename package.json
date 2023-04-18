@@ -4,7 +4,11 @@
   "description": "Why limit yourself to just one font?",
   "version": "1.0.0",
   "icon": "assets/icon.png",
+  "author": {
+    "name": "Zev Ross"
+  },
   "repository": {
+    "type": "git",
     "url": "https://github.com/Zev18/font-randomizer"
   },
   "engines": {
@@ -23,6 +27,7 @@
     "randomizer",
     "theme"
   ],
+  "license": "SEE LICENSE IN license.txt",
   "main": "./out/extension.js",
   "contributes": {
     "configuration": [
