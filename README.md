@@ -8,9 +8,9 @@ Getting tired of the current font? With one command, you can change it to anothe
 
 ## Features
 
-This extension randomly selects a font from a list defined in its settings. You can freely add, edit, and delete fonts from this list by going into settings (Mac: command + , Windows: ctrl + ,) and searching for "random font list."
+This extension randomly selects a font from a list defined in its settings. You can freely add, edit, and delete fonts from this list by going into settings (Mac: command + , Windows: ctrl + ,) and searching for "random font list." If there are no valid fonts in the list, it will select the default monospace font. Additionally, the font can be randomized by clicking the refresh icon in the status bar.
 
-If there are no valid fonts in the list, it will select the default monospace font.
+The current font will be displayed in the status bar as well, just in case you're ever wondering which one it gave you today! Clicking on the font name in the status bar will allow you to select the font manually, or jump to the settings page to manage your font list.
 
 ## Extension Settings
 
