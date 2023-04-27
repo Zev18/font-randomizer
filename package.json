@@ -47,7 +47,7 @@
               "type": "string"
             },
             "default": [
-              "Cascadia Code"
+              "monospace"
             ],
             "description": "List of fonts for the extension to randomly select from"
           }
