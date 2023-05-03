@@ -41,6 +41,17 @@
             "default": "true",
             "description": "Whether to randomly change the font on startup or not"
           },
+          "fontRandomizer.autoRefresh": {
+            "type": "string",
+            "enum": [
+              "Never",
+              "Every half hour",
+              "Every hour",
+              "Every 2 hours",
+              "Every day"
+            ],
+            "default": "Never"
+          },
           "fontRandomizer.fontList": {
             "type": "array",
             "items": {

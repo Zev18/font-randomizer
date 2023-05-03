@@ -12,12 +12,15 @@ This extension randomly selects a font from a list defined in its settings. You 
 
 The current font will be displayed in the status bar as well, just in case you're ever wondering which one it gave you today! Clicking on the font name in the status bar will allow you to select the font manually, or jump to the settings page to manage your font list.
 
+If you want it to change the font for you regularly even if you don't open any new windows, you can set a regular interval in the settings page.
+
 ## Extension Settings
 
 This extension contributes the following settings:
 
 - `fontRandomizer.fontList`: The array of fonts that the extension selects from.
 - `fontRandomizer.activateOnStartup`: This determines if the extension changes the font every time you start up vs code or not (default: true)
+- `fontRandomizer.autoRefresh`: Determines if the extension will automatically refresh the font regularly, and if so, how often
 
 ## Support the dev
 

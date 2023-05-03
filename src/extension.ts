@@ -10,6 +10,31 @@ interface FontMenuItem extends QuickPickItem {
 let fontLabel: vscode.StatusBarItem;
 let fontRefresh: vscode.StatusBarItem;
 
+const refreshRate =
+  vscode.workspace
+    .getConfiguration("fontRandomizer")
+    .get<string>("autoRefresh") || "Never";
+
+let interval: number;
+
+switch (refreshRate) {
+  case "Every half hour":
+    interval = 0.5;
+    break;
+  case "Every hour":
+    interval = 1;
+    break;
+  case "Every two hours":
+    interval = 2;
+    break;
+  case "Every day":
+    interval = 24;
+    break;
+  default:
+    interval = 0;
+    break;
+}
+
 function randomize() {
   let currentFont = vscode.workspace
     .getConfiguration()
@@ -59,6 +84,12 @@ export function activate({ subscriptions }: vscode.ExtensionContext) {
 
   if (activateOnStartup) {
     randomize();
+  }
+
+  if (interval !== 0) {
+    setInterval(() => {
+      randomize();
+    }, interval * 60 * 60 * 1000);
   }
 
   let disposable = vscode.commands.registerCommand(
@@ -135,7 +166,6 @@ async function pickFont(): Promise<void> {
 
 // helper function to open a certain setting
 function openSetting(setting: string) {
-  const config = vscode.workspace.getConfiguration();
   const section = setting.includes(".")
     ? setting.substring(0, setting.lastIndexOf("."))
     : setting;
