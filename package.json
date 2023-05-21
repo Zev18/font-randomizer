@@ -45,6 +45,7 @@
             "type": "string",
             "enum": [
               "Never",
+              "Every 3 seconds",
               "Every half hour",
               "Every hour",
               "Every 2 hours",

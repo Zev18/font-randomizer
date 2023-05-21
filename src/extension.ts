@@ -18,6 +18,9 @@ const refreshRate =
 let interval: number;
 
 switch (refreshRate) {
+  case "Every 3 seconds":
+    interval = 3 / (60 * 60);
+    break;
   case "Every half hour":
     interval = 0.5;
     break;
