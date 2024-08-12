@@ -2,10 +2,21 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from "vscode";
 import { QuickPickItem, window } from "vscode";
+import * as fontFinder from "font-finder";
 
 interface FontMenuItem extends QuickPickItem {
   type: "font" | "button";
 }
+
+type FontVariant = {
+  name?: string;
+  path: string;
+  type: string;
+  weight: number;
+  style: string;
+};
+
+type FontList = { [fontName: string]: FontVariant[] };
 
 let fontLabel: vscode.StatusBarItem;
 let fontRefresh: vscode.StatusBarItem;
@@ -38,6 +49,15 @@ switch (refreshRate) {
     break;
 }
 
+function removeFirstItem(str: string, filterStr: string): string {
+  const items = str.split(", ");
+  items.shift();
+  if (items.length === 0) {
+    items.push("monospace");
+  }
+  return items.filter((item) => item !== filterStr).join(", ");
+}
+
 function randomize() {
   let currentFont = vscode.workspace
     .getConfiguration()
@@ -55,9 +75,17 @@ function randomize() {
     }
   }
 
+  const currentFonts = vscode.workspace
+    .getConfiguration()
+    .get("editor.fontFamily") as string;
+
   vscode.workspace
     .getConfiguration()
-    .update("editor.fontFamily", randomFont + ", monospace", true);
+    .update(
+      "editor.fontFamily",
+      randomFont + ", " + removeFirstItem(currentFonts, randomFont),
+      true
+    );
   vscode.window.showInformationMessage("Font changed to " + randomFont);
 
   updateFontLabel(randomFont);
@@ -65,7 +93,23 @@ function randomize() {
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
-export function activate({ subscriptions }: vscode.ExtensionContext) {
+export async function activate({ subscriptions }: vscode.ExtensionContext) {
+  const allFonts: FontList = await fontFinder.list();
+
+  const currSettings =
+    vscode.workspace
+      .getConfiguration("fontRandomizer")
+      .get<string[]>("fontList") || [];
+  if (currSettings.length < 1) {
+    const currentFonts = vscode.workspace
+      .getConfiguration()
+      .get("editor.fontFamily") as string;
+
+    vscode.workspace
+      .getConfiguration("fontRandomizer")
+      .update("fontList", currentFonts.split(", "), true);
+  }
+
   const activateOnStartup = vscode.workspace
     .getConfiguration("fontRandomizer")
     .get<boolean>("activateOnStartup");
@@ -104,6 +148,9 @@ export function activate({ subscriptions }: vscode.ExtensionContext) {
     disposable,
     vscode.commands.registerCommand("font-randomizer.pick-font", () =>
       pickFont()
+    ),
+    vscode.commands.registerCommand("font-randomizer.add-font", () =>
+      addFont(allFonts)
     )
   );
 }
@@ -144,7 +191,7 @@ async function pickFont(): Promise<void> {
   const selection = await window.showQuickPick(menuItems, {
     placeHolder: "Select Font",
     onDidSelectItem: (selection: FontMenuItem) => {
-      // show original settings or selected fong
+      // show original settings or selected font
       config.update(
         "fontFamily",
         selection.type === "button" ? config.fontFamily : selection.label,
@@ -165,6 +212,35 @@ async function pickFont(): Promise<void> {
     openSetting("fontRandomizer.fontList");
     updateFontLabel(currentFont);
   }
+}
+
+// select a new font to add from the system font list
+async function addFont(fonts: FontList): Promise<void> {
+  console.log(fonts);
+  const fontFamilies: QuickPickItem[] = Object.keys(fonts).map((font) => ({
+    label: font,
+  }));
+
+  const selectedFamily = await vscode.window.showQuickPick(fontFamilies, {
+    placeHolder: "Select font family.",
+  });
+
+  if (!selectedFamily) return;
+
+  const fontName = selectedFamily.label;
+  const config = vscode.workspace.getConfiguration("fontRandomizer");
+  const currentList = config.get<string[]>("fontList") || [];
+  if (!currentList.includes(fontName)) {
+    config.update(
+      "fontList",
+      [...currentList, fontName],
+      vscode.ConfigurationTarget.Global
+    );
+  }
+
+  vscode.window.showInformationMessage(
+    fontName + " successfully added to font list."
+  );
 }
 
 // helper function to open a certain setting
